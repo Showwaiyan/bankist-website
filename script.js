@@ -49,12 +49,15 @@ message.style.height = Number.parseFloat(getComputedStyle(message).height) + 40 
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 
-// old school way
 btnScrollTo.addEventListener('click',(e)=>{
-    window.scrollTo({
-        left: section1.getBoundingClientRect().x+window.scrollX,
-        top: section1.getBoundingClientRect().y+window.scrollY,
-        behavior:'smooth',
-    }
-    )
+    // old school way
+    // window.scrollTo({
+    //     left: section1.getBoundingClientRect().x+window.scrollX,
+    //     top: section1.getBoundingClientRect().y+window.scrollY,
+    //     behavior:'smooth',
+    // }
+    // )
+
+    // new school way
+    section1.scrollIntoView({behavior: 'smooth'});
 })
