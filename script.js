@@ -42,3 +42,19 @@ message.innerHTML = 'We use cookies for imporved functionality and analytics. <b
 const header = document.querySelector('header');
 header.before(message);
 document.querySelector('.btn--close-cookie').addEventListener('click',()=>message.remove());
+
+message.style.height = Number.parseFloat(getComputedStyle(message).height) + 40 + 'px';
+
+// Smooth Scroll
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+// old school way
+btnScrollTo.addEventListener('click',(e)=>{
+    window.scrollTo({
+        left: section1.getBoundingClientRect().x+window.scrollX,
+        top: section1.getBoundingClientRect().y+window.scrollY,
+        behavior:'smooth',
+    }
+    )
+})
