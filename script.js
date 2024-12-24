@@ -61,3 +61,13 @@ btnScrollTo.addEventListener('click',(e)=>{
     // new school way
     section1.scrollIntoView({behavior: 'smooth'});
 })
+
+// Smooth Nav Scroll
+document.querySelector('.nav__links').addEventListener('click',(e)=>{
+    e.preventDefault();
+    if (e.target.className == "nav__link") {
+        console.log(e.target.className);
+        console.log(e.target.getAttribute("href"));
+        document.querySelector(e.target.getAttribute("href")).scrollIntoView({behavior: 'smooth'});
+    }
+})
