@@ -87,3 +87,19 @@ tabContainer.addEventListener('click',(e)=>{
     clicked.classList.add('operations__tab--active');
     document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add("operations__content--active");
 })
+
+// Nav bar fade
+const handleFadeHover = function(e) {
+    if (e.target.classList.contains('nav__link')) {
+        const link = e.target;
+        const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+        const logo = link.closest('.nav').querySelector('img');
+
+        //Fading
+        siblings.forEach(s=>{if (s != link) s.style.opacity = this});
+        logo.style.opacity = this;
+    }
+}
+const nav = document.querySelector('.nav');
+nav.addEventListener('mouseover',handleFadeHover.bind(0.5));
+nav.addEventListener('mouseout',handleFadeHover.bind(1));
