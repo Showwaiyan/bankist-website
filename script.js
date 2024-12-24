@@ -103,3 +103,10 @@ const handleFadeHover = function(e) {
 const nav = document.querySelector('.nav');
 nav.addEventListener('mouseover',handleFadeHover.bind(0.5));
 nav.addEventListener('mouseout',handleFadeHover.bind(1));
+
+// Sticky nav bar
+const initialPoint = section1.getBoundingClientRect();
+window.addEventListener('scroll',()=>{
+    if (window.scrollY > initialPoint.top) nav.classList.add('sticky');
+    else nav.classList.remove('sticky')
+})
