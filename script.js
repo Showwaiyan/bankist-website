@@ -148,7 +148,7 @@ const sectionAnimate = function (entries, observer) {
 
 const sectionObserver = new IntersectionObserver(sectionAnimate,{
     root: null,
-    threshold: 0.4,
+    threshold: 0.15,
 });
 
 allSections.forEach((s)=>{
