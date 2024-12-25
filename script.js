@@ -35,13 +35,16 @@ document.addEventListener('keydown', function (e) {
 });
 
 // Cookies message
-const message = document.createElement('div');
+let message = document.createElement('div');
 message.classList.add('cookie-message');
 message.innerHTML = 'We use cookies for imporved functionality and analytics. <button class= "btn btn--close-cookie">Got it!</button>';
 
 const header = document.querySelector('header');
 header.before(message);
-document.querySelector('.btn--close-cookie').addEventListener('click',()=>message.remove());
+document.querySelector('.btn--close-cookie').addEventListener('click',()=>{
+    message.remove();
+    message = null;
+});
 
 message.style.height = Number.parseFloat(getComputedStyle(message).height) + 40 + 'px';
 
@@ -105,8 +108,30 @@ nav.addEventListener('mouseover',handleFadeHover.bind(0.5));
 nav.addEventListener('mouseout',handleFadeHover.bind(1));
 
 // Sticky nav bar
-const initialPoint = section1.getBoundingClientRect();
-window.addEventListener('scroll',()=>{
-    if (window.scrollY > initialPoint.top) nav.classList.add('sticky');
-    else nav.classList.remove('sticky')
+
+// Not good for performance
+// const initialPoint = section1.getBoundingClientRect();
+// window.addEventListener('scroll',()=>{
+//     if (window.scrollY > initialPoint.top) nav.classList.add('sticky');
+//     else nav.classList.remove('sticky')
+// })
+
+// Using IntersectionObserver API
+const stickyNav = function(entries) {
+    const [entry] = entries;
+    if (entry.isIntersecting) {
+        nav.classList.remove('sticky');
+        if (message) header.before(message);
+    }
+    else {
+        nav.classList.add('sticky')
+        if (message) message.remove();
+    };
+}
+const navHeight = nav.getBoundingClientRect().height;
+const headerObserver = new IntersectionObserver(stickyNav,{
+    root: null,
+    threshold: 0,
+    rootMargin: message.isConnected ? `${-Number.parseFloat(getComputedStyle(message).height)}px` : `${navHeight}px`
 })
+headerObserver.observe(header)
