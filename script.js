@@ -135,3 +135,23 @@ const headerObserver = new IntersectionObserver(stickyNav,{
     rootMargin: message.isConnected ? `${-Number.parseFloat(getComputedStyle(message).height)}px` : `${navHeight}px`
 })
 headerObserver.observe(header)
+
+// Section Animation
+const allSections = document.querySelectorAll(".section");
+const sectionAnimate = function (entries, observer) {
+    const [entry] = entries;
+    if (entry.isIntersecting) {
+        entry.target.classList.remove("section--hidden");
+        sectionObserver.unobserve(entry.target);
+    }
+}
+
+const sectionObserver = new IntersectionObserver(sectionAnimate,{
+    root: null,
+    threshold: 0.4,
+});
+
+allSections.forEach((s)=>{
+    sectionObserver.observe(s);
+    s.classList.add("section--hidden");
+})
