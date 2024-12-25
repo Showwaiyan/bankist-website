@@ -139,11 +139,13 @@ headerObserver.observe(header)
 // Section Animation
 const allSections = document.querySelectorAll(".section");
 const sectionAnimate = function (entries, observer) {
-    const [entry] = entries;
-    if (entry.isIntersecting) {
-        entry.target.classList.remove("section--hidden");
-        sectionObserver.unobserve(entry.target);
-    }
+    entries.forEach(entry=>{
+        if (entry.isIntersecting) {
+            entry.target.classList.remove("section--hidden");
+            sectionObserver.unobserve(entry.target);
+        }
+    })
+
 }
 
 const sectionObserver = new IntersectionObserver(sectionAnimate,{
