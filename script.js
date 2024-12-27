@@ -240,7 +240,7 @@ slides.forEach((_,i)=>{
 
 dotContainer.addEventListener('click',(e)=>{
     if (e.target.classList.contains("dots__dot")) {
-        currSlide = e.target.dataset.slide;
+        currSlide = Number(e.target.dataset.slide);
         goToSlide(currSlide);
     }
 });
