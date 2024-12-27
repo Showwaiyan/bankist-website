@@ -225,3 +225,22 @@ document.addEventListener('keydown',e=>{
     e.key === 'ArrowRight' && moveSlide.bind(1)();
     e.key === 'ArrowLeft' && moveSlide.bind(-1)();
 })
+
+// Slide component with dot UI
+const dotContainer = document.querySelector('.dots');
+// Creating dots
+const createDot = function (slide) {
+    dotContainer.insertAdjacentHTML('beforeend',`
+        <button class="dots__dot" data-slide="${slide}"></button>
+    `)
+}
+slides.forEach((_,i)=>{
+    createDot(i);
+});
+
+dotContainer.addEventListener('click',(e)=>{
+    if (e.target.classList.contains("dots__dot")) {
+        currSlide = e.target.dataset.slide;
+        goToSlide(currSlide);
+    }
+});
