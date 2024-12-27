@@ -188,10 +188,41 @@ let currSlide = 0;
 const sliderBtnRight = document.querySelector('.slider__btn--right');
 const sliderBtnLeft = document.querySelector('.slider__btn--left');
 
+// Dots UI
+const dotContainer = document.querySelector('.dots');
+
+const createDot = function (slide) {
+    dotContainer.insertAdjacentHTML('beforeend',`
+        <button class="dots__dot" data-slide="${slide}"></button>
+    `)
+}
+
+// Creating Dots
+slides.forEach((_,i)=>{
+    createDot(i);
+});
+
+const activateDot = function (slide) {
+    document.querySelectorAll('.dots__dot').forEach(dot=>{
+        dot.classList.remove('dots__dot--active');
+    })
+    document.querySelector(`.dots__dot[data-slide="${slide}"]`).classList.add('dots__dot--active');
+}
+
+dotContainer.addEventListener('click',(e)=>{
+    if (e.target.classList.contains("dots__dot")) {
+        currSlide = Number(e.target.dataset.slide);
+        goToSlide(currSlide);
+    }
+});
+
+
+
 const goToSlide = function (slide) {
     slides.forEach((s,i)=>{
         s.style.transform = `translateX(${100*(i-currSlide)}%)`;
     })
+    activateDot(slide);
 }
 
 const moveSlide = function() {
@@ -225,22 +256,3 @@ document.addEventListener('keydown',e=>{
     e.key === 'ArrowRight' && moveSlide.bind(1)();
     e.key === 'ArrowLeft' && moveSlide.bind(-1)();
 })
-
-// Slide component with dot UI
-const dotContainer = document.querySelector('.dots');
-// Creating dots
-const createDot = function (slide) {
-    dotContainer.insertAdjacentHTML('beforeend',`
-        <button class="dots__dot" data-slide="${slide}"></button>
-    `)
-}
-slides.forEach((_,i)=>{
-    createDot(i);
-});
-
-dotContainer.addEventListener('click',(e)=>{
-    if (e.target.classList.contains("dots__dot")) {
-        currSlide = Number(e.target.dataset.slide);
-        goToSlide(currSlide);
-    }
-});
