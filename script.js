@@ -205,3 +205,23 @@ goToSlide(0);
 
 sliderBtnRight.addEventListener('click',moveSlide.bind(1));
 sliderBtnLeft.addEventListener('click',moveSlide.bind(-1));
+
+// Slide component with keyboard event
+let isSliderPos = false;
+const checkSliderPos = function(entries) {
+    const [entry] = entries;
+    if (entry.isIntersecting) isSliderPos = true;
+    else isSliderPos = false;
+}
+
+const sliderObserver = new IntersectionObserver(checkSliderPos,{
+    root: null,
+    threshold: 0,
+})
+sliderObserver.observe(slider);
+
+document.addEventListener('keydown',e=>{
+    if (!isSliderPos) return;
+    e.key === 'ArrowRight' && moveSlide.bind(1)();
+    e.key === 'ArrowLeft' && moveSlide.bind(-1)();
+})
