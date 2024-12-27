@@ -179,3 +179,29 @@ const imgObserver = new IntersectionObserver(removeLazyImg, {
 lazyImgs.forEach(img=>{
     imgObserver.observe(img)
 })
+
+// Slides Component
+const slider = document.querySelector('.slider');
+const slides = document.querySelectorAll('.slide');
+let currSlide = 0;
+
+const sliderBtnRight = document.querySelector('.slider__btn--right');
+const sliderBtnLeft = document.querySelector('.slider__btn--left');
+
+const goToSlide = function (slide) {
+    slides.forEach((s,i)=>{
+        s.style.transform = `translateX(${100*(i-currSlide)}%)`;
+    })
+}
+
+const moveSlide = function() {
+    if (this === 1) currSlide = currSlide === slides.length - 1 ? 0 : currSlide+1; // move right
+    if (this === -1) currSlide = currSlide === 0 ? slides.length -1 : currSlide-1;
+    goToSlide(currSlide)
+}
+
+// default initialization
+goToSlide(0);
+
+sliderBtnRight.addEventListener('click',moveSlide.bind(1));
+sliderBtnLeft.addEventListener('click',moveSlide.bind(-1));
